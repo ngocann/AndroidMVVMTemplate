@@ -7,7 +7,8 @@ import com.smartcontrol.smartcontrol.databinding.RvItemTwitBinding
 import com.smartcontrol.smartcontrol.model.Board
 import com.smartcontrol.smartcontrol.model.Twit
 
-class BoardAdapter (private var items : List<Board>): RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
+class BoardAdapter (private var items : List<Board>,
+                    private var listener: OnItemClickListener): RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -17,17 +18,25 @@ class BoardAdapter (private var items : List<Board>): RecyclerView.Adapter<Board
 
     override fun getItemCount(): Int = items.count()
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], listener)
     fun setNewData(it: List<Board>) {
         items = it
         notifyDataSetChanged()
     }
+    fun getItem(index: Int) : Board = items[index]
 
     class ViewHolder(private val binding : RvItemTwitBinding)
         : RecyclerView.ViewHolder(binding.root) {
-        fun bind(board:  Board) {
+        fun bind(board:  Board,  listener: OnItemClickListener?) {
             binding.board = board
+            if (listener != null) {
+                binding.root.setOnClickListener({ _ -> listener.onItemClick(layoutPosition) })
+            }
             binding.executePendingBindings()
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
     }
 }

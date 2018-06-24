@@ -15,12 +15,15 @@ import com.smartcontrol.smartcontrol.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), BoardAdapter.OnItemClickListener {
+    override fun onItemClick(position: Int) {
+        RelayActivity.start(this, boardAdapter.getItem(position))
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val boardAdapter = BoardAdapter(arrayListOf())
+    private val boardAdapter = BoardAdapter(arrayListOf(), this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +38,8 @@ class MainActivity : BaseActivity() {
                 boardAdapter.setNewData(it)
             }
         })
-        fabAdd.setOnClickListener { AddBoardActivity.start(this) }
+
+//        fabAdd.setOnClickListener { AddBoardActivity.start(this) }
 
     }
 
