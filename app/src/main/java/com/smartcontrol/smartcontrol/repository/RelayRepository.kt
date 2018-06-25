@@ -4,6 +4,7 @@ import com.smartcontrol.smartcontrol.api.SmartControlApi
 import com.smartcontrol.smartcontrol.db.RelayDao
 import com.smartcontrol.smartcontrol.db.TwitDao
 import com.smartcontrol.smartcontrol.model.Board
+import com.smartcontrol.smartcontrol.model.Relay
 import com.smartcontrol.smartcontrol.model.Twit
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -17,11 +18,19 @@ class RelayRepository @Inject constructor(
         private val smartControlApi: SmartControlApi,
         private val relayDao: RelayDao) {
 
-    fun getRelay(board: Board) : Single<String> {
+    //http://opensmarthome.ddns.eagleeyes.tw:98/leds.cgi?led=1
+    //http://opensmarthome.ddns.eagleeyes.tw:98/status.xml
+
+    fun getRelay(board: Board) : Single<List<Relay>> {
         return smartControlApi
-                .getRelay(board.host!!, board.username!!, board.password!!)
+                .getRelay(board)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
+
+
+
+
+
 
 }

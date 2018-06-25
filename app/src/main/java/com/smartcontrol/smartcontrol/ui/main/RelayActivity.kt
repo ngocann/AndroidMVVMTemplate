@@ -1,5 +1,6 @@
 package com.smartcontrol.smartcontrol.ui.main
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -36,6 +37,11 @@ class RelayActivity : BaseActivity() {
             val board = Parcels.unwrap<Board>(intent.getParcelableExtra("BOARD"))
             relayViewModel.setBoard(board)
         }
+
+
+        relayViewModel.relayLiveData.observe(this, Observer{
+            it?.let { relayAdapter.setNewData(it) }
+        })
     }
 
     companion object {

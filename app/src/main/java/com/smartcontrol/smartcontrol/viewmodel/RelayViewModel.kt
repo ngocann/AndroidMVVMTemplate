@@ -1,6 +1,7 @@
 package com.smartcontrol.smartcontrol.viewmodel
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.smartcontrol.smartcontrol.model.Board
 import com.smartcontrol.smartcontrol.model.Relay
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 class RelayViewModel @Inject constructor(private val relayRepository: RelayRepository) : ViewModel() {
 
-    private lateinit var relayLiveData : LiveData<List<Relay>>
+    var relayLiveData : MutableLiveData<List<Relay>> = MutableLiveData()
     private lateinit var board: Board
 
     fun setBoard(board: Board) {
@@ -25,10 +26,10 @@ class RelayViewModel @Inject constructor(private val relayRepository: RelayRepos
     fun getRelay(board: Board) {
         relayRepository.getRelay(board)
                 .subscribe { t1, t2 ->
-                    Log.d("getRelays $t1")
-                    if (t2 != null) {
-                        t2.printStackTrace()
+                    t1?.let {
+                        relayLiveData.value = t1
                     }
+                    t2?.printStackTrace()
                 }
     }
 

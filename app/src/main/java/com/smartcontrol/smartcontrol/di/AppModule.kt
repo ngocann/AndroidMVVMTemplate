@@ -8,6 +8,7 @@ import com.smartcontrol.smartcontrol.db.BoardDao
 import com.smartcontrol.smartcontrol.db.RelayDao
 import com.smartcontrol.smartcontrol.db.TwitDao
 import com.smartcontrol.smartcontrol.db.TwitDb
+import com.smartcontrol.smartcontrol.helper.JSoupHelper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -20,6 +21,10 @@ class AppModule {
         return application.applicationContext
     }
 
+    @Provides
+    fun providesJsoupHelper() : JSoupHelper {
+        return JSoupHelper()
+    }
     @Singleton
     @Provides
     fun provideDb(app: MyApplication): TwitDb {

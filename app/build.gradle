@@ -68,6 +68,7 @@ dependencies {
     implementation 'org.parceler:parceler-api:1.1.10'
     kapt 'org.parceler:parceler:1.1.10'
 
+    implementation 'org.jsoup:jsoup:1.11.3'
     //DataBinding
 
     //    kapt "com.android.databinding:compiler:$dataBinding"

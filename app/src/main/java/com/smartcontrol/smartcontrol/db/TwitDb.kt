@@ -9,7 +9,7 @@ import com.smartcontrol.smartcontrol.model.Twit
 @Database(
         entities = [
             Twit::class, Board::class, Relay::class],
-        version = 1,
+        version = 2,
         exportSchema = false)
 abstract class TwitDb : RoomDatabase() {
     abstract fun twitDao(): TwitDao

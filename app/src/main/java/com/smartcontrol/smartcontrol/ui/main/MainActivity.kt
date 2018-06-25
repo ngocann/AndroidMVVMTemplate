@@ -39,7 +39,7 @@ class MainActivity : BaseActivity(), BoardAdapter.OnItemClickListener {
             }
         })
 
-//        fabAdd.setOnClickListener { AddBoardActivity.start(this) }
+        fabAdd.setOnClickListener { AddBoardActivity.start(this) }
 
     }
 
