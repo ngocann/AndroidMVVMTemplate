@@ -28,6 +28,18 @@ class RelayViewModel @Inject constructor(private val relayRepository: RelayRepos
                 .subscribe { t1, t2 ->
                     t1?.let {
                         relayLiveData.value = t1
+                        getRelayStatus(board)
+                    }
+                    t2?.printStackTrace()
+                }
+    }
+    fun getRelayStatus(board: Board) {
+        relayRepository.getRelayStatus(board, relayLiveData.value)
+                .subscribe { t1, t2 ->
+                    t1?.let {
+                        if (it.first) {
+                            relayLiveData.value = it.second
+                        }
                     }
                     t2?.printStackTrace()
                 }

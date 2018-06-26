@@ -20,7 +20,6 @@
                 android:text="@{relay.name}"
                 android:id="@+id/tvName"
                 android:padding="4dp"
-                android:textColor="@android:color/black"
                 tools:text="Smart Control"
                 android:gravity="center"
                 android:layout_width="match_parent"

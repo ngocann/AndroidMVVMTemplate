@@ -3,6 +3,7 @@ package com.smartcontrol.smartcontrol.adapter
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.smartcontrol.smartcontrol.R
 import com.smartcontrol.smartcontrol.databinding.RvItemRelayBinding
 import com.smartcontrol.smartcontrol.databinding.RvItemTwitBinding
 import com.smartcontrol.smartcontrol.model.Board
@@ -29,6 +30,13 @@ class RelayAdapter (private var items : List<Relay>): RecyclerView.Adapter<Relay
         : RecyclerView.ViewHolder(binding.root) {
         fun bind(relay:  Relay) {
             binding.relay = relay
+            val colorOn = itemView.context.resources.getColor(R.color.relayOn)
+            val colorOff = itemView.context.resources.getColor(R.color.relayOff)
+            if (relay.status!!) {
+                binding.tvName.setTextColor(colorOn)
+            }else {
+                binding.tvName.setTextColor(colorOff)
+            }
             binding.executePendingBindings()
         }
     }
