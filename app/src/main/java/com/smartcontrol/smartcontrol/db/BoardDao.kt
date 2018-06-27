@@ -1,9 +1,6 @@
 package com.smartcontrol.smartcontrol.db
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 import com.smartcontrol.smartcontrol.model.Board
 import com.smartcontrol.smartcontrol.model.Twit
 import io.reactivex.Flowable
@@ -12,6 +9,9 @@ import io.reactivex.Flowable
 interface BoardDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(board: Board)
+
+    @Delete()
+    fun delete(board: Board)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun update(board: Board)

@@ -6,13 +6,12 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import com.smartcontrol.smartcontrol.R
 import com.smartcontrol.smartcontrol.adapter.BoardAdapter
 import com.smartcontrol.smartcontrol.databinding.ActivityMainBinding
 import com.smartcontrol.smartcontrol.extension.dialog
 import com.smartcontrol.smartcontrol.ui.BaseActivity
-import com.smartcontrol.smartcontrol.viewmodel.MainViewModel
+import com.smartcontrol.smartcontrol.viewmodel.BoardViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -20,6 +19,12 @@ class MainActivity : BaseActivity(), BoardAdapter.OnItemClickListener, BoardAdap
 
     override fun onItemLongClick(position: Int): Boolean {
 
+        dialog(arrayOf("Delete","Edit")) {
+            when (it) {
+                0 -> boardViewModel.deleteBoard(boardAdapter.getItem(position))
+                1 -> AddBoardActivity.start(this, boardAdapter.getItem(position))
+            }
+        }
         return true
     }
 
@@ -32,14 +37,16 @@ class MainActivity : BaseActivity(), BoardAdapter.OnItemClickListener, BoardAdap
 
     private val boardAdapter = BoardAdapter(arrayListOf(), this)
 
+    private lateinit var boardViewModel: BoardViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.executePendingBindings()
         binding.rvBoard.layoutManager = GridLayoutManager(this, 3)
         binding.rvBoard.adapter = boardAdapter
-        val twitViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
-        twitViewModel.getBoards().observe(this, Observer {
+        boardViewModel = ViewModelProviders.of(this, viewModelFactory).get(BoardViewModel::class.java)
+        boardViewModel.getBoards().observe(this, Observer {
             it?.let {
                 log("list twit ${it.size}")
                 boardAdapter.setNewData(it)

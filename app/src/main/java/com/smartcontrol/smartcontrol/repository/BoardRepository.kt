@@ -18,6 +18,11 @@ class BoardRepository @Inject constructor(
         private val smartControlApi: SmartControlApi,
         private val boardDao: BoardDao) {
 
+    fun delete(board: Board) : Completable {
+        return Completable.create { boardDao.delete(board) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
     fun update(board: Board) : Completable {
         return Completable.create { boardDao.update(board) }
                 .subscribeOn(Schedulers.io())

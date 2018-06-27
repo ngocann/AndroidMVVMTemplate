@@ -16,6 +16,7 @@ class AddBoardViewModel @Inject constructor(private val boardRepository: BoardRe
     private val boardLiveData : LiveData<List<Board>> = LiveDataReactiveStreams.fromPublisher(boardRepository.getAll())
     private val messageLiveData = MutableLiveData<String>()
 
+    var board : Board? = null
 
     fun getMessageLiveData(): MutableLiveData<String> {
         return messageLiveData
@@ -31,10 +32,10 @@ class AddBoardViewModel @Inject constructor(private val boardRepository: BoardRe
 
     fun updateBoard(board: Board) {
         boardRepository.update(board)
-                .subscribe { Log.d("Complete insert") }
+                .subscribe { Log.d("Complete update") }
     }
 
-    fun addBoard(host: Editable, username: Editable, pass: Editable, name: Editable, completer: (() -> Unit)) {
+    fun saveBoard(host: Editable, username: Editable, pass: Editable, name: Editable, completer: (() -> Unit)) {
         if (!isStringValid(host)) {
             messageLiveData.value = "Tên miền không hợp lệ!"
             return
@@ -53,7 +54,15 @@ class AddBoardViewModel @Inject constructor(private val boardRepository: BoardRe
             return
         }
 
-        insertBoard(Board(null, name.toString(), host.toString(), username.toString(), pass.toString()))
+        if (board == null) {
+            insertBoard(Board(null, name.toString(), host.toString(), username.toString(), pass.toString()))
+        }else {
+            board?.name = name.toString()
+            board?.host = host.toString()
+            board?.username = username.toString()
+            board?.password = pass.toString()
+            updateBoard(board!!)
+        }
         completer()
     }
 

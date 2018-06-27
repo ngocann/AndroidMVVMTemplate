@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="twitViewModel"
-            type="com.smartcontrol.smartcontrol.viewmodel.MainViewModel"/>
+            name="boardViewModel"
+            type="com.smartcontrol.smartcontrol.viewmodel.BoardViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

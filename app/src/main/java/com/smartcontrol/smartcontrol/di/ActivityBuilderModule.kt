@@ -5,7 +5,7 @@ import com.smartcontrol.smartcontrol.ui.main.AddBoardActivity
 import com.smartcontrol.smartcontrol.ui.main.MainActivity
 import com.smartcontrol.smartcontrol.ui.main.RelayActivity
 import com.smartcontrol.smartcontrol.viewmodel.AddBoardViewModel
-import com.smartcontrol.smartcontrol.viewmodel.MainViewModel
+import com.smartcontrol.smartcontrol.viewmodel.BoardViewModel
 import com.smartcontrol.smartcontrol.viewmodel.RelayViewModel
 import dagger.Binds
 import dagger.Module
@@ -21,8 +21,8 @@ internal abstract class ActivityBuilderModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(MainViewModel::class)
-    abstract fun bindTwitViewModel(viewModel: MainViewModel): ViewModel
+    @ViewModelKey(BoardViewModel::class)
+    abstract fun bindTwitViewModel(viewModel: BoardViewModel): ViewModel
 
     @ContributesAndroidInjector
     internal abstract fun addTwitActivity(): AddBoardActivity

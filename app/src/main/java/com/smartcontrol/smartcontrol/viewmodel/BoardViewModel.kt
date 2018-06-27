@@ -12,7 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val boardRepository: BoardRepository) : ViewModel() {
+class BoardViewModel @Inject constructor(private val boardRepository: BoardRepository) : ViewModel() {
 
     private val boardLiveData : LiveData<List<Board>> = LiveDataReactiveStreams.fromPublisher(boardRepository.getAll())
 
@@ -27,6 +27,11 @@ class MainViewModel @Inject constructor(private val boardRepository: BoardReposi
 
     fun updateBoard(board: Board) {
         boardRepository.update(board)
+                .subscribe { Log.d("Complete insert") }
+    }
+
+    fun deleteBoard(board: Board) {
+        boardRepository.delete(board)
                 .subscribe { Log.d("Complete insert") }
     }
 
