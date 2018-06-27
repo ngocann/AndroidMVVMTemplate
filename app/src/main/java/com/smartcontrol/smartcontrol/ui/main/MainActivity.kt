@@ -10,12 +10,19 @@ import android.support.v7.widget.LinearLayoutManager
 import com.smartcontrol.smartcontrol.R
 import com.smartcontrol.smartcontrol.adapter.BoardAdapter
 import com.smartcontrol.smartcontrol.databinding.ActivityMainBinding
+import com.smartcontrol.smartcontrol.extension.dialog
 import com.smartcontrol.smartcontrol.ui.BaseActivity
 import com.smartcontrol.smartcontrol.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), BoardAdapter.OnItemClickListener {
+class MainActivity : BaseActivity(), BoardAdapter.OnItemClickListener, BoardAdapter.OnItemLongClickListener {
+
+    override fun onItemLongClick(position: Int): Boolean {
+
+        return true
+    }
+
     override fun onItemClick(position: Int) {
         RelayActivity.start(this, boardAdapter.getItem(position))
     }
@@ -38,6 +45,8 @@ class MainActivity : BaseActivity(), BoardAdapter.OnItemClickListener {
                 boardAdapter.setNewData(it)
             }
         })
+
+        boardAdapter.onItemLongClickListener = this
 
         fabAdd.setOnClickListener { AddBoardActivity.start(this) }
 

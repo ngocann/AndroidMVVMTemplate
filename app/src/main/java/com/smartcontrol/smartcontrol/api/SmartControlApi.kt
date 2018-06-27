@@ -3,22 +3,19 @@ package com.smartcontrol.smartcontrol.api
 import com.smartcontrol.smartcontrol.helper.JSoupHelper
 import com.smartcontrol.smartcontrol.model.Board
 import com.smartcontrol.smartcontrol.model.Relay
+import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.Credentials
 import okhttp3.Request
 import xyz.blackice.rxokhttp.RxOkHttp
 import javax.inject.Inject
 
-class SmartControlApi @Inject constructor(val jSoupHelper: JSoupHelper){
+class SmartControlApi @Inject constructor(private val jSoupHelper: JSoupHelper){
 
-    fun pressRelay(host: String, username : String, password: String) : Single<String> {
-        val credential = Credentials.basic(username, password)
-        val builder = Request.Builder()
-                .url(host)
-                .header("Authorization", credential)
-                .get()
-        return RxOkHttp.instance().get(builder.build())
-                .single("")
+    fun pressRelay(port: String?, board: Board) : Completable {
+        return RxOkHttp.instance().get(buildRequest("${board.host}/$port", board))
+                .ignoreElements()
     }
 
     fun getRelay(board: Board) : Single<List<Relay>> {
@@ -27,13 +24,11 @@ class SmartControlApi @Inject constructor(val jSoupHelper: JSoupHelper){
                 .map {
                     mapperHtmlToRelay(it, board.id)
                 }
-
     }
 
-    fun getRelayStatus(board: Board) : Single<String> {
+    fun getRelayStatus(board: Board) : Observable<String> {
         val request = buildRequest(board.host + STATUS, board)
         return RxOkHttp.instance().get(request)
-                .single("")
     }
     
     private fun buildRequest(url : String?, board: Board) : Request {

@@ -9,20 +9,24 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import com.smartcontrol.smartcontrol.R
+import com.smartcontrol.smartcontrol.adapter.BoardAdapter
 import com.smartcontrol.smartcontrol.adapter.RelayAdapter
 import com.smartcontrol.smartcontrol.databinding.ActivityRelayBinding
 import com.smartcontrol.smartcontrol.model.Board
 import com.smartcontrol.smartcontrol.ui.BaseActivity
 import com.smartcontrol.smartcontrol.viewmodel.RelayViewModel
+import kotlinx.android.synthetic.main.activity_add.*
 import org.parceler.Parcel
 import org.parceler.Parcels
 import javax.inject.Inject
 
-class RelayActivity : BaseActivity() {
+class RelayActivity : BaseActivity(), BoardAdapter.OnItemClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val relayAdapter = RelayAdapter(arrayListOf())
+    private val relayAdapter = RelayAdapter(arrayListOf(), this)
+
+    private lateinit var relayViewModel: RelayViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +34,8 @@ class RelayActivity : BaseActivity() {
         binding.executePendingBindings()
         binding.rvRelay.layoutManager = GridLayoutManager(this, 3)
         binding.rvRelay.adapter = relayAdapter
-        val relayViewModel = ViewModelProviders.of(this, viewModelFactory).get(RelayViewModel::class.java)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
+        relayViewModel = ViewModelProviders.of(this, viewModelFactory).get(RelayViewModel::class.java)
         if (!intent.hasExtra("BOARD")) {
             finish()
         }else {
@@ -38,10 +43,13 @@ class RelayActivity : BaseActivity() {
             relayViewModel.setBoard(board)
         }
 
-
         relayViewModel.relayLiveData.observe(this, Observer{
             it?.let { relayAdapter.setNewData(it) }
         })
+    }
+
+    override fun onItemClick(position: Int) {
+        relayViewModel.pressRelay(relayAdapter.getItem(position))
     }
 
     companion object {

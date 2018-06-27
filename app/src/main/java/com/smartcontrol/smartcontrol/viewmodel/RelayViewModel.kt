@@ -10,6 +10,7 @@ import com.smartcontrol.smartcontrol.repository.RelayRepository
 import com.smartcontrol.smartcontrol.repository.TwitRepository
 import com.smartcontrol.smartcontrol.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -17,32 +18,38 @@ class RelayViewModel @Inject constructor(private val relayRepository: RelayRepos
 
     var relayLiveData : MutableLiveData<List<Relay>> = MutableLiveData()
     private lateinit var board: Board
-
+    private var relayDisposable : Disposable? = null
     fun setBoard(board: Board) {
         this.board = board
-        getRelay(board)
+        getRelay()
     }
 
-    fun getRelay(board: Board) {
+    fun getRelay() {
         relayRepository.getRelay(board)
                 .subscribe { t1, t2 ->
                     t1?.let {
                         relayLiveData.value = t1
-                        getRelayStatus(board)
+                        getRelayStatus()
                     }
                     t2?.printStackTrace()
                 }
     }
-    fun getRelayStatus(board: Board) {
-        relayRepository.getRelayStatus(board, relayLiveData.value)
-                .subscribe { t1, t2 ->
-                    t1?.let {
-                        if (it.first) {
-                            relayLiveData.value = it.second
-                        }
+
+    fun getRelayStatus() {
+        if (relayDisposable != null) {
+            relayDisposable?.dispose()
+        }
+        relayDisposable = relayRepository.getRelayStatus(board, relayLiveData.value)
+                .subscribe({
+                    if (it.first) {
+                        relayLiveData.value = it.second
                     }
-                    t2?.printStackTrace()
-                }
+                }, {it.printStackTrace()})
+    }
+
+    fun pressRelay(relay : Relay) {
+        relayRepository.pressRelay(relay, board)
+                .subscribe()
     }
 
 }
