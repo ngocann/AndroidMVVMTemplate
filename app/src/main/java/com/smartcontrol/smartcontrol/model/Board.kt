@@ -11,7 +11,7 @@ data class Board @ParcelConstructor constructor(@PrimaryKey(autoGenerate = true)
                   var name : String?,
                   var host : String?,
                   var username : String?,
-                  var password : String?){
+                  var password : String?, var status : Boolean? = false){
 //    constructor(
 //            name : String?,
 //            host : String?,

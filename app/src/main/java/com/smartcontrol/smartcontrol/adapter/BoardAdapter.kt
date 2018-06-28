@@ -32,11 +32,12 @@ class BoardAdapter (private var items : List<Board>,
         fun bind(board: Board, listener: OnItemClickListener?, onItemLongClickListener: OnItemLongClickListener?) {
             binding.board = board
             if (listener != null) {
-                binding.root.setOnClickListener({ _ -> listener.onItemClick(layoutPosition) })
+                binding.root.setOnClickListener { _ -> listener.onItemClick(layoutPosition) }
             }
             if (onItemLongClickListener != null) {
-                binding.root.setOnLongClickListener ({ _ -> onItemLongClickListener.onItemLongClick(layoutPosition) })
+                binding.root.setOnLongClickListener { _ -> onItemLongClickListener.onItemLongClick(layoutPosition) }
             }
+            board.status?.let { binding.root.isSelected = it }
             binding.executePendingBindings()
         }
     }

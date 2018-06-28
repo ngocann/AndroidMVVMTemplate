@@ -16,7 +16,6 @@ import com.smartcontrol.smartcontrol.model.Board
 import com.smartcontrol.smartcontrol.ui.BaseActivity
 import com.smartcontrol.smartcontrol.viewmodel.RelayViewModel
 import kotlinx.android.synthetic.main.activity_add.*
-import org.parceler.Parcel
 import org.parceler.Parcels
 import javax.inject.Inject
 
@@ -46,6 +45,11 @@ class RelayActivity : BaseActivity(), BoardAdapter.OnItemClickListener {
         relayViewModel.relayLiveData.observe(this, Observer{
             it?.let { relayAdapter.setNewData(it) }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        relayViewModel.destroy()
     }
 
     override fun onItemClick(position: Int) {

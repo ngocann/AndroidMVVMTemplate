@@ -52,4 +52,10 @@ class RelayViewModel @Inject constructor(private val relayRepository: RelayRepos
                 .subscribe()
     }
 
+    fun destroy() {
+        if (relayDisposable != null) {
+//            relayDisposable?.dispose()
+        }
+    }
+
 }

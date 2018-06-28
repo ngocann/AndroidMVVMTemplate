@@ -14,17 +14,22 @@
         android:layout_height="80dp">
 
         <android.support.constraint.ConstraintLayout
+            android:duplicateParentState="true"
+            android:background="@drawable/item_board"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <requestFocus/>
             <TextView
+                android:duplicateParentState="true"
                 android:text="@{board.name}"
                 android:id="@+id/tvName"
                 android:padding="4dp"
-                android:textColor="@android:color/black"
+                android:textColor="@color/item_board"
                 tools:text="Smart Control"
                 android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent" >
+            </TextView>
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </layout>

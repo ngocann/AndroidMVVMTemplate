@@ -18,6 +18,12 @@ class SmartControlApi @Inject constructor(private val jSoupHelper: JSoupHelper){
                 .ignoreElements()
     }
 
+
+    fun checkBoard(board: Board) : Observable<Boolean> {
+        val request = buildRequest(board.host + STATUS, board)
+        return RxOkHttp.instance().get(request)
+                .map { return@map true }
+    }
     fun getRelay(board: Board) : Single<List<Relay>> {
         return RxOkHttp.instance().get(buildRequest(board))
                 .single("")
@@ -31,15 +37,15 @@ class SmartControlApi @Inject constructor(private val jSoupHelper: JSoupHelper){
         return RxOkHttp.instance().get(request)
     }
     
-    private fun buildRequest(url : String?, board: Board) : Request {
+    private fun buildRequest(url : String?, board: Board) : Request? {
         return buildRequest(url, board.username, board.password)
     }
 
-    private fun buildRequest(board: Board) : Request {
+    private fun buildRequest(board: Board) : Request? {
         return buildRequest(board.host, board.username, board.password)
     }
 
-    private fun buildRequest(url : String?, username: String?, password: String?) : Request {
+    private fun buildRequest(url : String?, username: String?, password: String?) : Request? {
         val credential = Credentials.basic(username, password)
         val builder = Request.Builder()
                 .url(url)

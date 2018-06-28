@@ -18,7 +18,6 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(), BoardAdapter.OnItemClickListener, BoardAdapter.OnItemLongClickListener {
 
     override fun onItemLongClick(position: Int): Boolean {
-
         dialog(arrayOf("Delete","Edit")) {
             when (it) {
                 0 -> boardViewModel.deleteBoard(boardAdapter.getItem(position))

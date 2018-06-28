@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="@color/item_focus">
+    <item>
+        <selector>
+            <item android:state_selected="true">
+                <color android:color="@color/item_focus" />
+            </item>
+
+            <item android:state_activated="true">
+                <color android:color="@color/item_focus"/>
+            </item>
+
+            <item>
+                <color android:color="@color/item_normal" />
+            </item>
+        </selector>
+    </item>
+</ripple>
+
