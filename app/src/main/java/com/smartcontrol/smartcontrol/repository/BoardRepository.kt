@@ -36,6 +36,7 @@ class BoardRepository @Inject constructor(
 
     private fun checkStatus(board: Board) : Flowable<Board> {
         return smartControlApi.checkBoard(board)
+                .onErrorResumeNext(ObservableSource { Observable.just(false) })
                 .map {
                     board.status = it
                     return@map board
@@ -43,13 +44,16 @@ class BoardRepository @Inject constructor(
                 .toFlowable(BackpressureStrategy.BUFFER)
     }
 
+    fun checkStatus(boardList: List<Board>) : Single<List<Board>> {
+        return Flowable.fromIterable(boardList)
+                .flatMap { checkStatus(it) }
+                .toList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+
     fun getAll() : Flowable<List<Board>> {
         return boardDao.getAll()
-                .flatMapIterable { it -> it }
-                .flatMap { board -> checkStatus(board) }
-                .take(3,TimeUnit.SECONDS)
-                .toList()
-                .toFlowable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }

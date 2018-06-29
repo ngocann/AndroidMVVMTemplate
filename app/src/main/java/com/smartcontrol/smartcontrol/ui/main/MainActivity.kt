@@ -47,10 +47,20 @@ class MainActivity : BaseActivity(), BoardAdapter.OnItemClickListener, BoardAdap
         boardViewModel = ViewModelProviders.of(this, viewModelFactory).get(BoardViewModel::class.java)
         boardViewModel.getBoards().observe(this, Observer {
             it?.let {
-                log("list twit ${it.size}")
+                log("list board ${it.size}")
+                boardAdapter.setNewData(it)
+                boardViewModel.checkStatus()
+            }
+        })
+
+        boardViewModel.getStatusBoards().observe(this, Observer {
+            it?.let {
+                log("list updateStatus ${it.size}")
                 boardAdapter.setNewData(it)
             }
         })
+
+
 
         boardAdapter.onItemLongClickListener = this
 

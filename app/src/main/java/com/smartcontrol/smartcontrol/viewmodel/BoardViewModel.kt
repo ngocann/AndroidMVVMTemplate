@@ -2,6 +2,7 @@ package com.smartcontrol.smartcontrol.viewmodel
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.LiveDataReactiveStreams
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.smartcontrol.smartcontrol.model.Board
 import com.smartcontrol.smartcontrol.model.Twit
@@ -15,9 +16,13 @@ import javax.inject.Inject
 class BoardViewModel @Inject constructor(private val boardRepository: BoardRepository) : ViewModel() {
 
     private val boardLiveData : LiveData<List<Board>> = LiveDataReactiveStreams.fromPublisher(boardRepository.getAll())
+    private val boardStatusLiveData : MutableLiveData<List<Board>> = MutableLiveData()
 
     fun getBoards() : LiveData<List<Board>> {
         return boardLiveData
+    }
+    fun getStatusBoards() : LiveData<List<Board>> {
+        return boardStatusLiveData
     }
 
     fun insertBoard(board: Board) {
@@ -33,6 +38,18 @@ class BoardViewModel @Inject constructor(private val boardRepository: BoardRepos
     fun deleteBoard(board: Board) {
         boardRepository.delete(board)
                 .subscribe { Log.d("Complete insert") }
+    }
+
+    fun checkStatus() {
+        boardLiveData.value?.let {
+            boardRepository.checkStatus(it)
+                    .subscribe { t1, t2 ->
+                        t1?.let {
+                            boardStatusLiveData.value = t1
+                        }
+                        t2?.printStackTrace()
+                    }
+        }
     }
 
 }
