@@ -13,8 +13,11 @@ interface BoardDao {
     @Delete()
     fun delete(board: Board)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Update()
     fun update(board: Board)
+
+    @Update()
+    fun updateAll(boards: List<Board>)
 
     @Query("SELECT * FROM board")
     fun getAll(): Flowable<List<Board>>

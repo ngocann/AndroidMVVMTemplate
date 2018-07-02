@@ -11,7 +11,7 @@ import com.smartcontrol.smartcontrol.model.Relay
 import com.smartcontrol.smartcontrol.model.Twit
 
 class RelayAdapter (private var items : List<Relay>,
-                    private var listener: BoardAdapter.OnItemClickListener): RecyclerView.Adapter<RelayAdapter.ViewHolder>() {
+                    private var listener: RelayAdapter.OnItemClickListener): RecyclerView.Adapter<RelayAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -34,18 +34,12 @@ class RelayAdapter (private var items : List<Relay>,
 
     class ViewHolder(private val binding : RvItemRelayBinding)
         : RecyclerView.ViewHolder(binding.root) {
-        fun bind(relay:  Relay, listener: BoardAdapter.OnItemClickListener?) {
+        fun bind(relay:  Relay, listener: RelayAdapter.OnItemClickListener?) {
             binding.relay = relay
-            val colorOn = itemView.context.resources.getColor(R.color.relayOn)
-            val colorOff = itemView.context.resources.getColor(R.color.relayOff)
-            if (relay.status!!) {
-                binding.tvName.setTextColor(colorOn)
-            }else {
-                binding.tvName.setTextColor(colorOff)
-            }
             if (listener != null) {
-                binding.root.setOnClickListener({ _ -> listener.onItemClick(layoutPosition) })
+                binding.root.setOnClickListener { _ -> listener.onItemClick(layoutPosition) }
             }
+            relay.status?.let { binding.root.isSelected = it }
             binding.executePendingBindings()
         }
     }

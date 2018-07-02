@@ -8,6 +8,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.Credentials
 import okhttp3.Request
+import xyz.blackice.rxokhttp.RequestBuilder
 import xyz.blackice.rxokhttp.RxOkHttp
 import javax.inject.Inject
 
@@ -21,7 +22,9 @@ class SmartControlApi @Inject constructor(private val jSoupHelper: JSoupHelper){
 
     fun checkBoard(board: Board) : Observable<Boolean> {
         val request = buildRequest(board.host + STATUS, board)
-        return RxOkHttp.instance().get(request)
+        val requestBuilder = RequestBuilder()
+        requestBuilder.timeout = 2
+        return RxOkHttp(requestBuilder).get(request)
                 .map { return@map true }
     }
     fun getRelay(board: Board) : Single<List<Relay>> {

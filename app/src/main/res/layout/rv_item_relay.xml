@@ -14,9 +14,13 @@
         android:layout_height="80dp">
 
         <android.support.constraint.ConstraintLayout
+            android:duplicateParentState="true"
+            android:background="@drawable/item_board"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
+                android:duplicateParentState="true"
+                android:textColor="@color/item_board"
                 android:text="@{relay.name}"
                 android:id="@+id/tvName"
                 android:padding="4dp"

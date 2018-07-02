@@ -43,7 +43,7 @@ dependencies {
     implementation "com.android.support:design:$support"
 
     //Retrofit
-    implementation 'xyz.blackice.rxokhttp:rxokhttp:0.7.1'
+    implementation 'xyz.blackice.rxokhttp:rxokhttp:0.7.2'
 
     //RxJava
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"

@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_add.*
 import org.parceler.Parcels
 import javax.inject.Inject
 
-class RelayActivity : BaseActivity(), BoardAdapter.OnItemClickListener {
+class RelayActivity : BaseActivity(), RelayAdapter.OnItemClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

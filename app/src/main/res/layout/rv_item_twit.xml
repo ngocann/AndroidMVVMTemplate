@@ -21,10 +21,10 @@
             <requestFocus/>
             <TextView
                 android:duplicateParentState="true"
+                android:textColor="@color/item_board"
                 android:text="@{board.name}"
                 android:id="@+id/tvName"
                 android:padding="4dp"
-                android:textColor="@color/item_board"
                 tools:text="Smart Control"
                 android:gravity="center"
                 android:layout_width="match_parent"

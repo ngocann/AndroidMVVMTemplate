@@ -6,6 +6,7 @@
     <color name="relayOn">#f7f7f7</color>
     <color name="relayOff">#6FB36E</color>
     <color name="item_focus">@color/colorAccent</color>
+    <color name="item_press">@color/colorPrimaryDark</color>
     <color name="item_normal">@android:color/white</color>
 
 </resources>

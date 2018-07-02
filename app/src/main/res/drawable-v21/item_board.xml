@@ -2,12 +2,16 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="@color/item_focus">
     <item>
         <selector>
-            <item android:state_selected="true">
+            <item android:state_selected="true" android:state_pressed="false">
                 <color android:color="@color/item_focus" />
             </item>
 
             <item android:state_activated="true">
                 <color android:color="@color/item_focus"/>
+            </item>
+
+            <item android:state_selected="true" android:state_pressed="true">
+                <color android:color="@color/item_press"/>
             </item>
 
             <item>

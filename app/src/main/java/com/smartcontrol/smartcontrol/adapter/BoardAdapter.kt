@@ -37,7 +37,9 @@ class BoardAdapter (private var items : List<Board>,
             if (onItemLongClickListener != null) {
                 binding.root.setOnLongClickListener { _ -> onItemLongClickListener.onItemLongClick(layoutPosition) }
             }
-            board.status?.let { binding.root.isSelected = it }
+            board.status?.let {
+                binding.root.isSelected = it
+            }
             binding.executePendingBindings()
         }
     }

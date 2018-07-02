@@ -11,6 +11,7 @@ import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+import java.util.function.Function
 import javax.inject.Inject
 
 class BoardRepository @Inject constructor(
@@ -28,6 +29,12 @@ class BoardRepository @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
+    fun updateAll(board: List<Board>) : Completable {
+        return Completable.create { boardDao.updateAll(board) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+
     fun insert(board: Board) : Completable {
         return Completable.create { boardDao.insert(board) }
                 .subscribeOn(Schedulers.io())
@@ -36,7 +43,7 @@ class BoardRepository @Inject constructor(
 
     private fun checkStatus(board: Board) : Flowable<Board> {
         return smartControlApi.checkBoard(board)
-                .onErrorResumeNext(ObservableSource { Observable.just(false) })
+                .onErrorReturn { false }
                 .map {
                     board.status = it
                     return@map board
