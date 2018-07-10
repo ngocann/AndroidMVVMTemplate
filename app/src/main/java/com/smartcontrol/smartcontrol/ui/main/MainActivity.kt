@@ -53,6 +53,7 @@ class MainActivity : BaseActivity(), BoardAdapter.OnItemClickListener, BoardAdap
         binding.rvBoard.layoutManager = GridLayoutManager(this, 3)
         binding.rvBoard.adapter = boardAdapter
         boardViewModel = ViewModelProviders.of(this, viewModelFactory).get(BoardViewModel::class.java)
+
         boardViewModel.getBoards().observe(this, Observer {
             it?.let {
                 log("list board ${it.size}")
@@ -60,8 +61,18 @@ class MainActivity : BaseActivity(), BoardAdapter.OnItemClickListener, BoardAdap
                 boardViewModel.checkStatus()
             }
         })
+        boardViewModel.getModelCheckStatus().observe(this, Observer {
+            it?.let {
+                swiperefresh.isRefreshing = false
+            }
+        })
         boardAdapter.onItemLongClickListener = this
         fabAdd.setOnClickListener { AddBoardActivity.start(this) }
+
+        binding.swiperefresh.setOnRefreshListener {
+            boardViewModel.checkStatus()
+        }
+
 
     }
 

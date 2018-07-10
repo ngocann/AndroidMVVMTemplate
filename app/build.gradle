@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.zalora.twitsplit"
+        applicationId "com.smartcontrol.plus"
         minSdkVersion 17
         targetSdkVersion 27
         versionCode 1
@@ -14,6 +14,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         dataBinding.enabled = true
     }
+    // smartcontrol123#@! smartcontrol123#@! smartcontrolplus
     buildTypes {
         release {
             minifyEnabled false

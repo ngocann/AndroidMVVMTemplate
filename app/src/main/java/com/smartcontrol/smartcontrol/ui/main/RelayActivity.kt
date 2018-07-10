@@ -8,6 +8,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.widget.ScrollView
 import com.smartcontrol.smartcontrol.R
 import com.smartcontrol.smartcontrol.adapter.BoardAdapter
 import com.smartcontrol.smartcontrol.adapter.RelayAdapter
@@ -23,6 +24,7 @@ class RelayActivity : BaseActivity(), RelayAdapter.OnItemClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private val relayAdapter = RelayAdapter(arrayListOf(), this)
 
     private lateinit var relayViewModel: RelayViewModel

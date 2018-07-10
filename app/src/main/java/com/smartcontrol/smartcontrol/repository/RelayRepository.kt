@@ -25,7 +25,7 @@ class RelayRepository @Inject constructor(
 
     fun pressRelay(relay: Relay, board: Board) : Completable {
         return smartControlApi.pressRelay(relay.port, board)
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
     }
     fun getRelay(board: Board) : Single<List<Relay>> {
@@ -42,7 +42,7 @@ class RelayRepository @Inject constructor(
                     return@flatMap smartControlApi.getRelayStatus(board)
                             .map { mapperHtmlToStatus(it, relayList ) }
                 }
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 

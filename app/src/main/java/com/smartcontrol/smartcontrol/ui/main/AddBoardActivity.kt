@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.text.TextUtils
 import com.smartcontrol.smartcontrol.R
 import com.smartcontrol.smartcontrol.databinding.ActivityAddBinding
 import com.smartcontrol.smartcontrol.model.Board
@@ -45,6 +46,16 @@ class AddBoardActivity : BaseActivity() {
             addBoardViewModel.saveBoard(edtHost.text, edtUsername.text, edtPassword.text, edtName.text) {
                 toast("Thêm thiết bị thành công!")
                 onBackPressed()
+            }
+        }
+
+        edtHost.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                val host = edtHost.text.toString()
+                if (TextUtils.isEmpty(host) || !(host.startsWith("http://") || host.startsWith("https://"))) {
+                    edtHost.setText("http://")
+                    edtHost.setSelection(edtHost.text.count())
+                }
             }
         }
 

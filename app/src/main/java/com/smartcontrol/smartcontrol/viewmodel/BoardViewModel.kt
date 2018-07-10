@@ -17,9 +17,13 @@ class BoardViewModel @Inject constructor(private val boardRepository: BoardRepos
 
     private val boardLiveData : LiveData<List<Board>> = LiveDataReactiveStreams.fromPublisher(boardRepository.getAll())
     private val boardStatusLiveData : MutableLiveData<List<Board>> = MutableLiveData()
+    private val modelCheckStatusFinish : MutableLiveData<Boolean> = MutableLiveData()
 
     fun getBoards() : LiveData<List<Board>> {
         return boardLiveData
+    }
+    fun getModelCheckStatus() : LiveData<Boolean> {
+        return modelCheckStatusFinish
     }
     fun getStatusBoards() : LiveData<List<Board>> {
         return boardStatusLiveData
@@ -46,9 +50,11 @@ class BoardViewModel @Inject constructor(private val boardRepository: BoardRepos
     }
 
     fun checkStatus() {
+        modelCheckStatusFinish.value = false
         boardLiveData.value?.let {
             boardRepository.checkStatus(it)
                     .subscribe { t1, t2 ->
+                        modelCheckStatusFinish.value = true
                         t1?.let {
                             if (isChangeStatus(boardLiveData.value, t1)) {
                                 boardStatusLiveData.value = t1

@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.text.Editable
 import android.text.TextUtils
+import android.util.Patterns
 import com.smartcontrol.smartcontrol.model.Board
 import com.smartcontrol.smartcontrol.repository.BoardRepository
 import com.smartcontrol.smartcontrol.util.Log
@@ -36,8 +37,8 @@ class AddBoardViewModel @Inject constructor(private val boardRepository: BoardRe
     }
 
     fun saveBoard(host: Editable, username: Editable, pass: Editable, name: Editable, completer: (() -> Unit)) {
-        if (!isStringValid(host)) {
-            messageLiveData.value = "Tên miền không hợp lệ!"
+        if (!isHostValid(host)) {
+            messageLiveData.value = "Tên miền không hợp lệ! Ví dụ: http://smartcontrol.vn:9090"
             return
         }
         if (!isStringValid(username)) {
@@ -66,6 +67,13 @@ class AddBoardViewModel @Inject constructor(private val boardRepository: BoardRe
         completer()
     }
 
+    private fun isHostValid(value : Editable) : Boolean {
+        if (!isStringValid(value)) {
+            return false;
+        }
+        return value.toString().startsWith("http://")
+                || value.toString().startsWith("https://")
+    }
     private fun isStringValid(value : Editable) : Boolean {
         return when {
             TextUtils.isEmpty(value) -> false
