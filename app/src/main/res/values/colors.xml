@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6FB36E</color>
+    <color name="colorPrimaryDark">#57b155</color>
+    <color name="colorAccent">#6FB36E</color>
+    <color name="relayOn">#f7f7f7</color>
+    <color name="relayOff">#6FB36E</color>
+    <color name="item_focus">@color/colorAccent</color>
+    <color name="item_press">@color/colorPrimaryDark</color>
+    <color name="item_normal">@android:color/white</color>
+
+</resources>
