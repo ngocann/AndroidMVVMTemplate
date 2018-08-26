@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6FB36E</color>
-    <color name="colorPrimaryDark">#57b155</color>
-    <color name="colorAccent">#6FB36E</color>
+    <color name="colorPrimary">#324660</color>
+    <color name="colorPrimaryDark">#233c5b</color>
+    <color name="colorAccent">#324660</color>
     <color name="relayOn">#f7f7f7</color>
-    <color name="relayOff">#6FB36E</color>
+    <color name="relayOff">#324660</color>
     <color name="item_focus">@color/colorAccent</color>
     <color name="item_press">@color/colorPrimaryDark</color>
     <color name="item_normal">@android:color/white</color>
+    <color name="title_post">#3E8F8A</color>
 
 </resources>

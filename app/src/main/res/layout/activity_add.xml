@@ -6,7 +6,7 @@
     <data>
         <variable
             name="boardViewModel"
-            type="com.smartcontrol.smartcontrol.viewmodel.BoardViewModel"/>
+            type="com.kipalog.mobile.viewmodel.BoardViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

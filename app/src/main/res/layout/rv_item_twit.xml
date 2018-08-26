@@ -6,7 +6,7 @@
     <data>
         <variable
             name="board"
-            type="com.smartcontrol.smartcontrol.model.Board"/>
+            type="com.kipalog.mobile.model.Board"/>
     </data>
     <android.support.v7.widget.CardView
         android:layout_margin="8dp"

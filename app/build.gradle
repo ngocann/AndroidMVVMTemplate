@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.smartcontrol.plus"
+        applicationId "com.kipalog.mobile"
         minSdkVersion 17
         targetSdkVersion 27
         versionCode 1
@@ -14,7 +14,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         dataBinding.enabled = true
     }
-    // smartcontrol123#@! smartcontrol123#@! smartcontrolplus
+    buildTypes.each {
+        it.buildConfigField 'String', 'KIPALOG_APIKEY', KIPALOG_APIKEY
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -45,6 +47,9 @@ dependencies {
 
     //Retrofit
     implementation 'xyz.blackice.rxokhttp:rxokhttp:0.7.2'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
 
     //RxJava
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
@@ -68,6 +73,10 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'org.parceler:parceler-api:1.1.10'
     kapt 'org.parceler:parceler:1.1.10'
+    implementation "us.feras.mdv:markdownview:1.1.0"
+    implementation 'ru.noties:markwon:1.0.6'
+    implementation 'ru.noties:markwon-image-loader:1.0.6' // optional
+    implementation 'ru.noties:markwon-view:1.0.6' // optional
 
     implementation 'org.jsoup:jsoup:1.11.3'
     //DataBinding
