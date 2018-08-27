@@ -4,8 +4,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.kipalog.mobile.databinding.RvItemPostBinding
-import com.kipalog.mobile.databinding.RvItemTwitBinding
-import com.kipalog.mobile.model.Board
 import com.kipalog.mobile.model.Post
 
 class PostAdapter (private var items : List<Post>,

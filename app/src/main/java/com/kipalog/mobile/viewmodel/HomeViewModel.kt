@@ -1,15 +1,8 @@
 package com.kipalog.mobile.viewmodel
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.LiveDataReactiveStreams
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import com.kipalog.mobile.model.Board
 import com.kipalog.mobile.model.Post
-import com.kipalog.mobile.repository.BoardRepository
 import com.kipalog.mobile.repository.PostRepository
-import com.kipalog.mobile.util.Log
-import io.reactivex.functions.Consumer
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val postRepository: PostRepository) : BaseViewModel() {
@@ -21,13 +14,13 @@ class HomeViewModel @Inject constructor(private val postRepository: PostReposito
         getPostNewest()
     }
     fun loadPostHot() {
-        getHotNewest()
+        getPostHot()
     }
 
-    private fun getHotNewest() {
+    private fun getPostHot() {
         isLoading.value = true
-        postRepository.getHot().subscribe({
-            hotLiveData.value = it
+        postRepository.getNewest().subscribe({
+            newestLiveData.value = it
             isLoading.value = false
         }, {
             isLoading.value = false
@@ -36,7 +29,7 @@ class HomeViewModel @Inject constructor(private val postRepository: PostReposito
     }
     private fun getPostNewest() {
         isLoading.value = true
-        postRepository.getHot().subscribe({
+        postRepository.getNewest().subscribe({
             newestLiveData.value = it
             isLoading.value = false
         }, {

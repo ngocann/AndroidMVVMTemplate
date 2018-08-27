@@ -1,14 +1,15 @@
 package com.kipalog.mobile.ui.home
 
 import android.arch.lifecycle.Observer
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import com.kipalog.mobile.R
 import com.kipalog.mobile.adapter.PostAdapter
+import com.kipalog.mobile.databinding.FragmentHotBinding
 import com.kipalog.mobile.databinding.FragmentNewestBinding
 import com.kipalog.mobile.ui.base.BaseDaggerFragment
 import com.kipalog.mobile.ui.PostDetailActivity
 import com.kipalog.mobile.viewmodel.HomeViewModel
-import kotlinx.android.synthetic.main.fragment_hot.*
 
 class HotFragment : BaseDaggerFragment<HomeViewModel>(), PostAdapter.OnItemClickListener {
     override fun classViewModel(): Class<HomeViewModel> = HomeViewModel::class.java
@@ -16,10 +17,12 @@ class HotFragment : BaseDaggerFragment<HomeViewModel>(), PostAdapter.OnItemClick
 
     private  var postAdapter = PostAdapter(arrayListOf(), this)
 
+    lateinit var swipeRefresh : SwipeRefreshLayout
     override fun initView() {
         super.initView()
+        swipeRefresh = (binding as FragmentHotBinding).swipeRefresh
         swipeRefresh.setOnRefreshListener { viewmodel?.loadPostHot() }
-        val rvPost = (binding as FragmentNewestBinding).rvPost
+        val rvPost = (binding as FragmentHotBinding).rvPost
         rvPost.layoutManager = LinearLayoutManager(activity)
         rvPost.adapter = postAdapter
         viewmodel?.loadPostHot()
@@ -39,7 +42,7 @@ class HotFragment : BaseDaggerFragment<HomeViewModel>(), PostAdapter.OnItemClick
     }
 
     override fun onItemClick(position: Int) {
-        activity?.let { PostDetailActivity.start(it, postAdapter.getItem(position).content) }
+        activity?.let { PostDetailActivity.start(it, postAdapter.getItem(position).id) }
     }
 
 

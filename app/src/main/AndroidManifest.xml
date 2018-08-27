@@ -13,14 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.MainActivity">
-        </activity>
-        <activity
-            android:name=".ui.main.AddBoardActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.main.RelayActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:noHistory="true"
             android:name=".ui.SplashActivity"
