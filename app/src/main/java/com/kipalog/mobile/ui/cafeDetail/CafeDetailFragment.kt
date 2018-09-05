@@ -45,11 +45,14 @@ class CafeDetailFragment : BaseDaggerFragment<CafeDetailViewModel>(), PostAdapte
         viewmodel?.modelFacebook?.observe(this, Observer { showFacebook(it) })
         viewmodel?.modelPhone?.observe(this, Observer { showPhone() })
         viewmodel?.modelInstagram?.observe(this, Observer { showInstagram(it) })
-        viewmodel?.modelLatLng?.observe(this, Observer { updateMap(it) })
+        viewmodel?.modelLatLng?.observe(this, Observer { updateMap() })
         ivShare.setOnClickListener { openShare() }
         ivBack.setOnClickListener { activity?.onBackPressed() }
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment
-        mapFragment.getMapAsync { mMap = it }
+        mapFragment.getMapAsync {
+            mMap = it
+            updateMap()
+        }
 
         arguments?.let {
             val cafe : Cafe = Parcels.unwrap(it.getParcelable(BUNDLE_CAFE))
@@ -57,8 +60,8 @@ class CafeDetailFragment : BaseDaggerFragment<CafeDetailViewModel>(), PostAdapte
         }
     }
 
-    fun updateMap(latLng: LatLng?) {
-        latLng?.let {
+    fun updateMap() {
+        viewmodel?.modelLatLng?.value?.let {
             mMap?.addMarker( MarkerOptions().position(it))
             mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 12.0F))
             mMap?.setOnMapClickListener { openGoogleMAp() }
