@@ -2,11 +2,11 @@ package com.kipalog.mobile.ui.home
 
 import android.arch.lifecycle.Observer
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.kipalog.mobile.R
 import com.kipalog.mobile.adapter.PostAdapter
 import com.kipalog.mobile.databinding.FragmentNewestBinding
 import com.kipalog.mobile.ui.base.BaseDaggerFragment
-import com.kipalog.mobile.ui.PostDetailActivity
 import com.kipalog.mobile.viewmodel.HomeViewModel
 
 class NewestFragment : BaseDaggerFragment<HomeViewModel>(), PostAdapter.OnItemClickListener {
@@ -15,8 +15,8 @@ class NewestFragment : BaseDaggerFragment<HomeViewModel>(), PostAdapter.OnItemCl
 
     private  var postAdapter = PostAdapter(arrayListOf(), this)
 
-    override fun initView() {
-        super.initView()
+    override fun initView(view : View) {
+        super.initView(view)
         val rvPost = (binding as FragmentNewestBinding).rvPost
         rvPost.layoutManager = LinearLayoutManager(activity)
         rvPost.adapter = postAdapter
@@ -28,7 +28,7 @@ class NewestFragment : BaseDaggerFragment<HomeViewModel>(), PostAdapter.OnItemCl
     }
 
     override fun onItemClick(position: Int) {
-        activity?.let { PostDetailActivity.start(it, postAdapter.getItem(position).content) }
+//        activity?.let { PostDetailActivity.start(it, postAdapter.getItem(position).content) }
     }
 
 

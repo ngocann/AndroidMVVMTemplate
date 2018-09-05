@@ -1,8 +1,10 @@
 package com.kipalog.mobile.di
 
 import android.arch.lifecycle.ViewModel
+import com.kipalog.mobile.ui.cafeDetail.CafeDetailFragment
 import com.kipalog.mobile.ui.home.HotFragment
 import com.kipalog.mobile.ui.home.NewestFragment
+import com.kipalog.mobile.viewmodel.CafeDetailViewModel
 import com.kipalog.mobile.viewmodel.HomeViewModel
 import dagger.Binds
 import dagger.Module
@@ -18,4 +20,7 @@ internal abstract class FragmentBuilderModule {
 
     @ContributesAndroidInjector
     internal abstract fun hotFragment(): HotFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun cafeDetailFragment(): CafeDetailFragment
 }

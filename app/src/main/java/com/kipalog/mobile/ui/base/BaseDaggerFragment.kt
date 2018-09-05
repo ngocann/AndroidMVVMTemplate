@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
+import com.kipalog.mobile.BR
+import com.kipalog.mobile.R
 import com.kipalog.mobile.viewmodel.BaseViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -21,6 +23,7 @@ import javax.inject.Inject
 open abstract class BaseDaggerFragment<T : BaseViewModel> : DaggerFragment() {
 
     var processBar : ProgressBar? = null
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -29,18 +32,28 @@ open abstract class BaseDaggerFragment<T : BaseViewModel> : DaggerFragment() {
 
     abstract fun layoutId() : Int
     abstract fun classViewModel() : Class<T>
-    open fun initView() {
-
+    open fun progressBarId() : Int {
+        return -1
     }
+    open fun initView(view : View) {
+        processBar = view.findViewById(progressBarId())
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
         viewmodel = ViewModelProviders.of(this, viewModelFactory).get(classViewModel())
-        initView()
+        binding.setVariable(BR.viewModel, viewmodel)
+        binding.executePendingBindings()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewmodel?.isLoading?.let { enableModelLoading(it) }
         viewmodel?.errorMessage?.let { enableModelMessage(it) }
-        return binding.root
+        initView(view)
     }
 
     fun toast (message : String) {
@@ -70,10 +83,6 @@ open abstract class BaseDaggerFragment<T : BaseViewModel> : DaggerFragment() {
     }
 
     fun enableModelLoading(modelLoadding : MutableLiveData<Boolean>) {
-        if (processBar == null) {
-            processBar = ProgressBar(activity)
-            processBar?.isIndeterminate = true
-        }
         modelLoadding.observe(this, Observer { it?.let { if (it) showProcessBar() else hideProcessBar() } })
     }
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#324660</color>
-    <color name="colorPrimaryDark">#233c5b</color>
-    <color name="colorAccent">#324660</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#000000</color>
     <color name="relayOn">#f7f7f7</color>
     <color name="relayOff">#324660</color>
     <color name="item_focus">@color/colorAccent</color>

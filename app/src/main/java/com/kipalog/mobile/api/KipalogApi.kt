@@ -14,14 +14,8 @@ interface KipalogApi {
     }
 
     @GET("/api/v1/post/newest")
-    @Headers("X-Kipalog-Token:${BuildConfig.KIPALOG_APIKEY}",
-            "Accept: application/json;charset=utf-8"
-    )
     fun getNewest() : Observable<PostResponse>
 
     @GET("/api/v1/post/hot")
-    @Headers("X-Kipalog-Token:${BuildConfig.KIPALOG_APIKEY}",
-            "Accept: application/json;charset=utf-8"
-    )
     fun getHot() : Observable<PostResponse>
 }
