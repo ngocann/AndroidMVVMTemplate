@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "557801111089",
+    "firebase_url": "https://packedsaigon.firebaseio.com",
+    "project_id": "packedsaigon",
+    "storage_bucket": "packedsaigon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557801111089:android:72a5f4a69a4787e4",
+        "android_client_info": {
+          "package_name": "com.packedsaigon.coffee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557801111089-pj0m4b7or4u9k7nuhn89b95ceqs0qt9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc0OXC59RST601Cy9HRh4HpW8Lv4_wtKQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
