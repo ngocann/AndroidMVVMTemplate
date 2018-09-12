@@ -27,7 +27,7 @@ fun Context.isConnected(): Boolean {
 
 @SuppressLint("MissingPermission")
 fun Context.openCaller(phone : String) {
-    val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phone"))
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("tel:$phone"))
     startActivity(intent)
 }
 

@@ -51,6 +51,7 @@ class CafeDetailFragment : BaseDaggerFragment<CafeDetailViewModel>(), PostAdapte
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment
         mapFragment.getMapAsync {
             mMap = it
+            mMap
             updateMap()
         }
 
@@ -63,7 +64,7 @@ class CafeDetailFragment : BaseDaggerFragment<CafeDetailViewModel>(), PostAdapte
     fun updateMap() {
         viewmodel?.modelLatLng?.value?.let {
             mMap?.addMarker( MarkerOptions().position(it))
-            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 12.0F))
+            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 16.0F))
             mMap?.setOnMapClickListener { openGoogleMAp() }
         }
     }
@@ -80,16 +81,16 @@ class CafeDetailFragment : BaseDaggerFragment<CafeDetailViewModel>(), PostAdapte
     fun openShare() {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+            putExtra(Intent.EXTRA_TEXT, getString(R.string.share_content))
             type = "text/plain"
         }
         startActivity(sendIntent)
     }
 
-    fun initViewPager(it: Cafe?) {
+    private fun initViewPager(it: Cafe?) {
         val listImageFragment = ArrayList<ImageFragment>()
         it?.images?.forEach {
-            val imageFragment = ImageFragment.newInstance(it)
+            val imageFragment = ImageFragment.newInstance(it, true)
             imageFragment.callback = object : (() -> Unit) {
                 override fun invoke() {
                     viewmodel?.modelCafe?.value?.images?.let { it1 -> onImageClicked?.imageClicked(it1) }
@@ -107,25 +108,12 @@ class CafeDetailFragment : BaseDaggerFragment<CafeDetailViewModel>(), PostAdapte
         fun imageClicked(images : List<String>)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQ_PERMISSION_CALL_PHONE) {
-            if (permissions[0] == android.Manifest.permission.CALL_PHONE &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                showPhone()
-            }
-        }
-    }
-
     private fun showInstagram(instagram: String?) {
         instagram?.let { context?.openInstagram(instagram) }
     }
 
     private fun showPhone() {
-        activity?.hasPermission(android.Manifest.permission.CALL_PHONE)?.let {
-            if (it) viewmodel?.modelPhone?.value?.let { context?.openCaller(it) }
-            else activity?.requestPermissionsSafely(arrayOf(android.Manifest.permission.CALL_PHONE), REQ_PERMISSION_CALL_PHONE)
-        }
+        viewmodel?.modelPhone?.value?.let { context?.openCaller(it) }
     }
     private fun showFacebook(page: String?) {
         page?.let { context?.openFacebook(it) }
