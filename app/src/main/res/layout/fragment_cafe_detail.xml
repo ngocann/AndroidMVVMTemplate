@@ -92,6 +92,7 @@
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -99,6 +100,17 @@
                             android:textColor="@{viewModel.categoryTextColorCafeBinding}"
                             android:textStyle="bold"
                             android:gravity="center"
+                            />
+
+                        <ImageView
+                            android:id="@+id/ivFav"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:padding="16dp"
+                            android:src="@drawable/ic_star_fav"
                             />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.Toolbar>
