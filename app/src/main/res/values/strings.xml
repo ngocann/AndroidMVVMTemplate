@@ -2,4 +2,5 @@
     <string name="app_name">PackedSaigon</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="share_content">Hey there! Found this café on Packed Guides app. Looks good. https://play.google.com/store/apps/details?id=com.packed.saigon</string>
+    <string name="packedguides">PACKEDGUIDES</string>
 </resources>

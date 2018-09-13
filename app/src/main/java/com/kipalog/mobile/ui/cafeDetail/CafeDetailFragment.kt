@@ -7,11 +7,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.ViewUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -49,19 +52,23 @@ class CafeDetailFragment : BaseDaggerFragment<CafeDetailViewModel>(), PostAdapte
         ivShare.setOnClickListener { openShare() }
         ivBack.setOnClickListener { activity?.onBackPressed() }
         ivFav.setOnClickListener { viewmodel?.saveCafe() }
+        ivTime.setOnClickListener {
+            sv.requestFocus()
+            sv.post {
+                sv.scrollTo(0, sv.bottom)
+            }
+        }
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment
         mapFragment.getMapAsync {
             mMap = it
             mMap
             updateMap()
         }
-
         arguments?.let {
             val cafe : Cafe = Parcels.unwrap(it.getParcelable(BUNDLE_CAFE))
             viewmodel?.initData(cafe)
         }
     }
-
     fun updateMap() {
         viewmodel?.modelLatLng?.value?.let {
             mMap?.addMarker( MarkerOptions().position(it))

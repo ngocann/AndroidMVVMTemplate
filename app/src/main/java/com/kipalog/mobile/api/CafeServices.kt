@@ -31,6 +31,8 @@ class CafeServices @Inject constructor(val firFirestore: FIRFirestore) {
                         coffee.lat = it["lat"] as Double?
                         coffee.lng = it["lng"] as Double?
                         coffee.images = it["images"] as List<String>?
+                        coffee.desc?.let {
+                            coffee.desc = it.replace("\\n","\n") }
                         listCoffee.add(coffee)
                     }
                     return@flatMap Single.just(listCoffee)
