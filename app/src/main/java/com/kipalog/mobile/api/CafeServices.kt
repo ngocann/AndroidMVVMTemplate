@@ -16,6 +16,7 @@ class CafeServices @Inject constructor(val firFirestore: FIRFirestore) {
                     val listCoffee = ArrayList<Cafe>()
                     it.result.forEach {
                         val coffee = Cafe()
+                        coffee.id = it.id
                         coffee.address = it["address"] as String?
                         coffee.name = it["name"] as String?
                         coffee.category = it["category"] as String?

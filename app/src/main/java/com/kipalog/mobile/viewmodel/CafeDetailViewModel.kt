@@ -11,60 +11,54 @@ import javax.inject.Inject
 
 class CafeDetailViewModel @Inject constructor(private val cafeRepository: CafeRepository) : BaseViewModel() {
 
-    val cafeBinding : ObservableField<Cafe> = ObservableField()
-    val categoryColorCafeBinding : ObservableField<Int> = ObservableField(R.color.vc)
-    val categoryTextColorCafeBinding : ObservableField<Int> = ObservableField(R.color.text_vc)
+    val cafeBinding: ObservableField<Cafe> = ObservableField()
     val modelCafe = MutableLiveData<Cafe>()
     val modelFacebook = MutableLiveData<String>()
     val modelInstagram = MutableLiveData<String>()
     val modelPhone = MutableLiveData<String>()
     val modelLatLng = MutableLiveData<LatLng>()
-    var cafe : Cafe? = null
+    var cafe: Cafe? = null
 
     fun initData(cafe: Cafe) {
         cafe?.let {
+            cafeRepository.checkCafeFav(it)
             this.cafe = it
-            modelCafe.value = cafe
+            modelCafe.value = it
             updateBinding(it)
-            if (cafe?.lat != null && cafe?.lng != null) {
-                modelLatLng.value = LatLng(cafe?.lat!!, cafe?.lng!!)
+            if (it?.lat != null && it?.lng != null) {
+                modelLatLng.value = LatLng(it?.lat!!, it?.lng!!)
             }
+        }
+    }
+
+    fun saveCafe() {
+        cafe?.let {
+            if (it.fav!!) {
+                it.fav = false
+                cafeRepository.unSaveCafe(it)
+            } else {
+                it.fav = true
+                cafeRepository.saveCafe(it)
+            }
+            cafeBinding.set(it)
+            cafeBinding.notifyChange()
         }
     }
 
     fun onFacebookClicked() {
         modelFacebook.value = modelCafe.value?.fb
     }
+
     fun onInstagramClicked() {
         modelInstagram.value = modelCafe.value?.insta
     }
+
     fun onPhoneClicked() {
         modelPhone.value = modelCafe.value?.phone
     }
 
-    private fun updateBinding(cafe : Cafe) {
+    private fun updateBinding(cafe: Cafe) {
         cafeBinding.set(cafe)
-        categoryColorCafeBinding.set(cafe.category?.let { getColorFromCategory(it) })
-        categoryTextColorCafeBinding.set(cafe.category?.let { getTextColorFromCategory(it) })
     }
-    private fun getColorFromCategory(category: String) : Int {
-        return when(category) {
-            "VC" ->  R.color.vc
-            "SD" ->  R.color.sd
-            "BYT" ->  R.color.byt
-            "EF" ->  R.color.ef
-            else -> R.color.vc
-        }
-    }
-    private fun getTextColorFromCategory(category: String) : Int {
-        return when(category) {
-            "VC" ->  R.color.text_vc
-            "SD" ->  R.color.text_sd
-            "BYT" ->  R.color.text_byt
-            "EF" ->  R.color.text_ef
-            else -> R.color.text_vc
-        }
-    }
-
 
 }

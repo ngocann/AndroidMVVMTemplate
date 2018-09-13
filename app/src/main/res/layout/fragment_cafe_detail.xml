@@ -84,12 +84,19 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?android:attr/actionBarSize"
-                    android:background="@{viewModel.categoryColorCafeBinding}"
-                    tools:background="@{viewModel.categoryColorCafeBinding}"
                     android:gravity="center"
                     app:layout_collapseMode="pin"
+                    android:contentInsetLeft="0dp"
+                    android:contentInsetStart="0dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    android:contentInsetRight="0dp"
+                    android:contentInsetEnd="0dp"
+                    app:contentInsetRight="0dp"
+                    app:contentInsetEnd="0dp"
                     >
                     <android.support.constraint.ConstraintLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
@@ -97,7 +104,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@{viewModel.cafeBinding.name}"
-                            android:textColor="@{viewModel.categoryTextColorCafeBinding}"
+                            app:categoryBackground="@{viewModel.cafeBinding.category}"
                             android:textStyle="bold"
                             android:gravity="center"
                             />
@@ -110,7 +117,7 @@
                             app:layout_constraintRight_toRightOf="parent"
                             android:background="?android:attr/selectableItemBackground"
                             android:padding="16dp"
-                            android:src="@drawable/ic_star_fav"
+                            android:src="@{viewModel.cafeBinding.fav == true ? @drawable/ic_star_fav : @drawable/ic_star_unfav}"
                             />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.Toolbar>
@@ -161,9 +168,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="8dp"
                     android:padding="8dp"
-                    android:background="@{viewModel.categoryColorCafeBinding}"
-                    android:textColor="@{viewModel.categoryTextColorCafeBinding}"
-
+                    app:categoryBackground="@{viewModel.cafeBinding.category}"
                     android:gravity="center"
                     app:layout_constraintTop_toBottomOf="@+id/divider"
                     android:text="@{viewModel.cafeBinding.address}"

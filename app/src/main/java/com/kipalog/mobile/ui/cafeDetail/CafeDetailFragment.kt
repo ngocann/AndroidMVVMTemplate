@@ -48,6 +48,7 @@ class CafeDetailFragment : BaseDaggerFragment<CafeDetailViewModel>(), PostAdapte
         viewmodel?.modelLatLng?.observe(this, Observer { updateMap() })
         ivShare.setOnClickListener { openShare() }
         ivBack.setOnClickListener { activity?.onBackPressed() }
+        ivFav.setOnClickListener { viewmodel?.saveCafe() }
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment
         mapFragment.getMapAsync {
             mMap = it
