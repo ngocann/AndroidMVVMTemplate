@@ -6,6 +6,7 @@ import android.text.Html
 import android.text.TextUtils
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.kipalog.mobile.R
 
 import java.text.DecimalFormat
@@ -36,6 +37,14 @@ object BindingAdapterUtils {
         }
         textView.setTextColor(textView.resources.getColor(colorText))
         textView.setBackgroundResource(colorBackground)
+    }
+
+    @BindingAdapter("url")
+    @JvmStatic
+    fun setImage(imageView: ImageView, url: String?) {
+        url?.let {
+            Glide.with(imageView.context) .load(it) .into(imageView)
+        }
     }
 
 }

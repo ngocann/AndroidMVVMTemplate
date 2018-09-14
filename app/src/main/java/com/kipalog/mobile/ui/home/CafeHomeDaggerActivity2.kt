@@ -6,20 +6,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.kipalog.mobile.R
-import com.kipalog.mobile.adapter.HomeCafeAdapter
 import com.kipalog.mobile.model.Cafe
-import com.kipalog.mobile.ui.base.BaseActivity
+import com.kipalog.mobile.ui.base.BaseDaggerActivity
 import com.kipalog.mobile.ui.base.ListFragmentPagerAdapter
 import com.kipalog.mobile.ui.cafeDetail.CafeDetailFragment
 import com.kipalog.mobile.viewmodel.CafeViewModel
 import kotlinx.android.synthetic.main.activity_home_cafe2.*
-import kotlinx.android.synthetic.main.home_activity.*
 
-class CafeHomeActivity2 : BaseActivity<CafeViewModel>() {
+class CafeHomeDaggerActivity2 : BaseDaggerActivity<CafeViewModel>() {
     override fun classViewModel(): Class<CafeViewModel> = CafeViewModel::class.java
     companion object {
         fun start(context: Context) {
-            val intent = Intent(context, CafeHomeActivity2::class.java)
+            val intent = Intent(context, CafeHomeDaggerActivity2::class.java)
             context.startActivity(intent)
         }
     }

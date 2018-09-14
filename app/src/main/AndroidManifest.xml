@@ -29,9 +29,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.home.CafeActivity" />
-        <activity android:name=".ui.cafeDetail.CafeDetailActivity" />
-        <activity android:name=".ui.home.CafeHomeActivity2" />
+        <activity android:name=".ui.cafe.CafeActivity" />
+        <activity android:name=".ui.cafeDetail.CafeDetailDaggerActivity" />
+        <activity android:name=".ui.home.CafeHomeDaggerActivity2" />
+        <activity android:name=".ui.home.HomeActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

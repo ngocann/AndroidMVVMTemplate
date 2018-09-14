@@ -1,12 +1,12 @@
 package com.kipalog.mobile.di
 
 import android.arch.lifecycle.ViewModel
-import com.kipalog.mobile.ui.cafeDetail.CafeDetailActivity
-import com.kipalog.mobile.ui.home.CafeActivity
-import com.kipalog.mobile.ui.home.CafeHomeActivity2
+import com.kipalog.mobile.ui.cafeDetail.CafeDetailDaggerActivity
+import com.kipalog.mobile.ui.cafe.CafeActivity
+import com.kipalog.mobile.ui.home.CafeHomeDaggerActivity2
+import com.kipalog.mobile.ui.home.HomeActivity
 import com.kipalog.mobile.viewmodel.CafeDetailViewModel
 import com.kipalog.mobile.viewmodel.CafeViewModel
-import com.kipalog.mobile.viewmodel.HomeViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -17,13 +17,16 @@ import elcom.efarm.supervisor.di.ViewModelKey
 internal abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector
-    internal abstract fun cafeHomeActivity2(): CafeHomeActivity2
+    internal abstract fun cafeHomeActivity2(): CafeHomeDaggerActivity2
 
     @ContributesAndroidInjector
     internal abstract fun cafeActivity(): CafeActivity
 
     @ContributesAndroidInjector
-    internal abstract fun cafeDetailActivity(): CafeDetailActivity
+    internal abstract fun homeActivity(): HomeActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun cafeDetailActivity(): CafeDetailDaggerActivity
 
     @Binds
     @IntoMap

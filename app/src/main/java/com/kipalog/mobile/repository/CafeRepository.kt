@@ -11,11 +11,11 @@ import javax.inject.Inject
 class CafeRepository @Inject constructor(private val cafeServices: CafeServices, private val preferenceHelper: PreferenceHelper) {
 
     var cafeBookmarkList : HashMap<String, String> = preferenceHelper.getCafeBookmark()
-    fun getCafe() : Single<List<Cafe>> {
+    fun getCafe(category: String? = null) : Single<List<Cafe>> {
         return cafeServices.getCafe()
                 .map {
                     it.forEach { it.fav = cafeBookmarkList[it.id!!] != null }
-                    return@map it
+                    if (category == null) return@map it else return@map filterCategory(it, category)
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -37,6 +37,12 @@ class CafeRepository @Inject constructor(private val cafeServices: CafeServices,
     fun unSaveCafe(cafe: Cafe) {
         cafeBookmarkList.remove(cafe.id!!)
         saveBookmark()
+    }
+
+    fun filterCategory(cafeList: List<Cafe>?, category: String): ArrayList<Cafe> {
+        val cafeListCategory = ArrayList<Cafe>()
+        cafeList?.forEach {  if ( it.category == category ) cafeListCategory.add(it)}
+        return cafeListCategory
     }
 
 }

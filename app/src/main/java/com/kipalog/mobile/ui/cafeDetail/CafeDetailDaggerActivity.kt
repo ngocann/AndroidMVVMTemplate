@@ -3,22 +3,21 @@ package com.kipalog.mobile.ui.cafeDetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import com.kipalog.mobile.R
 import com.kipalog.mobile.model.Cafe
-import com.kipalog.mobile.ui.base.BaseActivity
+import com.kipalog.mobile.ui.base.BaseDaggerActivity
 import com.kipalog.mobile.ui.cafeDetail.CafeDetailFragment.OnImageClicked
 import com.kipalog.mobile.viewmodel.CafeDetailViewModel
 import org.parceler.Parcels
 
-class CafeDetailActivity : BaseActivity<CafeDetailViewModel>() {
+class CafeDetailDaggerActivity : BaseDaggerActivity<CafeDetailViewModel>() {
     override fun classViewModel() = CafeDetailViewModel::class.java
 
     companion object {
         const val TAG_CAFE_DETAIL = "TAG_CAFE_DETAIL"
         const val BUNDLE_CAFE = "BUNDLE_CAFE"
         fun start(context: Context, cafe : Cafe? = null) {
-            val intent = Intent(context, CafeDetailActivity::class.java)
+            val intent = Intent(context, CafeDetailDaggerActivity::class.java)
             cafe?.let { intent.putExtra(BUNDLE_CAFE, Parcels.wrap(it)) }
             context.startActivity(intent)
         }

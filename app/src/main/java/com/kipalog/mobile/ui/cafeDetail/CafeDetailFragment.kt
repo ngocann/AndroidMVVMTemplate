@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.kipalog.mobile.BR
 import com.kipalog.mobile.R
 import com.kipalog.mobile.adapter.PostAdapter
 import com.kipalog.mobile.databinding.FragmentHotBinding
@@ -42,8 +43,11 @@ class CafeDetailFragment : BaseDaggerFragment<CafeDetailViewModel>(), PostAdapte
     private var mMap: GoogleMap? = null
 
     override fun progressBarId(): Int = R.id.progressBar
+    override fun isSupportDataBinding(): Boolean = true
     override fun initView(view: View) {
         super.initView(view)
+        binding.setVariable(BR.viewModel, viewmodel)
+        binding.executePendingBindings()
         viewmodel?.modelCafe?.observe(this, Observer { initViewPager(it) })
         viewmodel?.modelFacebook?.observe(this, Observer { showFacebook(it) })
         viewmodel?.modelPhone?.observe(this, Observer { showPhone() })

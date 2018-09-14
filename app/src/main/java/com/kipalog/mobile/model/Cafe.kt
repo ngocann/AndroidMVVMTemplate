@@ -20,5 +20,15 @@ data class Cafe constructor(var id: String? = null,
                             var fav: Boolean? = false,
                             var lat: Double? = null,
                             var lng: Double? = null,
-                            var images: List<String>? = null
-)
+                            var images: List<String>? = null) {
+    fun thumbImage() : String? {
+        return images?.get(0)
+    }
+}
+enum class Category(val category: String?) {
+    VC("VC"),
+    SD("SD"),
+    EF("EF"),
+    BYT("BYT")
+}
+
