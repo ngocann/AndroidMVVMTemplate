@@ -34,7 +34,7 @@ fun Context.openCaller(phone : String) {
 fun Context.openFacebook(page : String) {
     var intent : Intent = try {
         packageManager.getPackageInfo("com.facebook.katana", 0)
-        Intent(Intent.ACTION_VIEW, Uri.parse("fb://facewebmodal/f?href=555759494587669"))
+        Intent(Intent.ACTION_VIEW, Uri.parse("fb://facewebmodal/f?href=$page"))
     } catch (e: Exception) {
         Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/$page"))
     }
