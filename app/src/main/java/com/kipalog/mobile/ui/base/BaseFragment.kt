@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
+import com.kipalog.mobile.BR
 import com.kipalog.mobile.viewmodel.BaseViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -22,14 +23,31 @@ import javax.inject.Inject
 open abstract class BaseFragment : Fragment() {
 
     var processBar : ProgressBar? = null
+    lateinit var binding: ViewDataBinding
 
+    open fun progressBarId() : Int {
+        return -1
+    }
     abstract fun layoutId() : Int
-    open fun initView(view : View) {
+    open fun isSupportDataBinding() = false
+    open fun initView(view : View){
+        processBar = view.findViewById(progressBarId())
+    }
+
+    fun setBindingVariable(variable : Int, obj : Object? ) {
+        binding.setVariable(variable, obj)
+        binding.executePendingBindings()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(layoutId(), container, false)
+        val view : View
+        if (!isSupportDataBinding()) {
+            view = inflater.inflate(layoutId(), container, false)
+        }else {
+            binding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
+            view = binding.root
+        }
         return view
     }
 

@@ -9,5 +9,12 @@
     <color name="item_press">@color/colorPrimaryDark</color>
     <color name="item_normal">@android:color/white</color>
     <color name="title_post">#3E8F8A</color>
-
+    <color name="ef">#92FCCF</color>
+    <color name="byt">#E66cc2</color>
+    <color name="sd">#67c9fa</color>
+    <color name="vc">#f19d39</color>
+    <color name="text_vc">#ffffff</color>
+    <color name="text_ef">#ee233a</color>
+    <color name="text_byt">#ffffff</color>
+    <color name="text_sd">#ffffff</color>
 </resources>

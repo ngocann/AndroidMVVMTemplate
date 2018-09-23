@@ -37,6 +37,7 @@ class AppModule {
         return db.postDao()
     }
 
+
     @Singleton
     @Provides
     fun provideKialogApi(retrofit: Retrofit) : KipalogApi {

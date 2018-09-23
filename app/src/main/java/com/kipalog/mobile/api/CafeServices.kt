@@ -16,6 +16,7 @@ class CafeServices @Inject constructor(val firFirestore: FIRFirestore) {
                     val listCoffee = ArrayList<Cafe>()
                     it.result.forEach {
                         val coffee = Cafe()
+                        coffee.id = it.id
                         coffee.address = it["address"] as String?
                         coffee.name = it["name"] as String?
                         coffee.category = it["category"] as String?
@@ -30,6 +31,8 @@ class CafeServices @Inject constructor(val firFirestore: FIRFirestore) {
                         coffee.lat = it["lat"] as Double?
                         coffee.lng = it["lng"] as Double?
                         coffee.images = it["images"] as List<String>?
+                        coffee.desc?.let {
+                            coffee.desc = it.replace("\\n","\n") }
                         listCoffee.add(coffee)
                     }
                     return@flatMap Single.just(listCoffee)

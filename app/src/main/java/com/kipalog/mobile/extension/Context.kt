@@ -27,14 +27,14 @@ fun Context.isConnected(): Boolean {
 
 @SuppressLint("MissingPermission")
 fun Context.openCaller(phone : String) {
-    val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phone"))
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("tel:$phone"))
     startActivity(intent)
 }
 
 fun Context.openFacebook(page : String) {
     var intent : Intent = try {
         packageManager.getPackageInfo("com.facebook.katana", 0)
-        Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/$page"))
+        Intent(Intent.ACTION_VIEW, Uri.parse("fb://facewebmodal/f?href=$page"))
     } catch (e: Exception) {
         Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/$page"))
     }
